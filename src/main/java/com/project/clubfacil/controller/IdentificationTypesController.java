@@ -31,7 +31,6 @@ public class IdentificationTypesController {
 //        List<ApartmentResponse> list = apartmentServices.findApartmentByFloor(id);
         return identificationTypesServices.getIdentificationTypes();
     }
-
 }
 
 
