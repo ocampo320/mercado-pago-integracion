@@ -16,24 +16,22 @@ import javax.persistence.Id;
 @Builder(toBuilder = true)
 public class IdentificationTypes {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idBD;
+    @NotNull
+   private String id;
 
     @NotNull
-    String id;
+    private  String name;
 
     @NotNull
-    String name;
+    private  String type;
 
     @NotNull
-    String type;
+    private  int min_length;
 
     @NotNull
-    int min_length;
-
-    @NotNull
-    int max_length;
+    private int max_length;
 
     public IdentificationTypes() {
 
