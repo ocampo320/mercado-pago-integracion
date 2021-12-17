@@ -43,7 +43,7 @@ public class PaymentMethodsServices {
     @Autowired
     ProcessModeRepository processModeRepository;
 
-    public List<PaymentMethods> getPaymentMethodsFromApi() {
+    public List<PaymentMethodsDTO> getPaymentMethodsFromApi() {
 
         List<PaymentMethods> paymentMethodsListNew = new ArrayList<>();
 
@@ -142,7 +142,7 @@ public class PaymentMethodsServices {
                         processModeRepository.save(processModeNew);
 
                     });
-                //    paymentMethodsNew.setProcessing_modes(processingModesList);
+                   paymentMethodsNew.setProcessing_modes(processingModesList);
                 }
 
 
@@ -161,11 +161,11 @@ public class PaymentMethodsServices {
                         financialInstitutionsRepository.save(financialInstitutionNew);
                     });
 
-               //     paymentMethodsNew.setFinancial_institutions(financialInstitutionList);
+                paymentMethodsNew.setFinancial_institutions(financialInstitutionList);
 
 
                 } else {
-                //    paymentMethodsNew.setFinancial_institutions(new ArrayList<>());
+                   paymentMethodsNew.setFinancial_institutions(new ArrayList<>());
                 }
 
                 /**
@@ -189,33 +189,10 @@ public class PaymentMethodsServices {
               //  savePaymentMethod(paymentMethodsNew);
             });
 
-
         }
 
-        return paymentMethodsListNew;
+        return Arrays.asList(paymentMethodsList.getBody());
     }
-//
-//    void savePaymentMethod(PaymentMethods paymentMethodsNew ){
-//
-//        paymentMethodsNew.builder()
-//                .name(paymentMethodsNew.getId())
-//                .payment_type_id(paymentMethodsNew.getPayment_type_id())
-//                .status(paymentMethodsNew.getStatus())
-//                .secure_thumbnail(paymentMethodsNew.getSecure_thumbnail())
-//                .thumbnail(paymentMethodsNew.getThumbnail())
-//                .deferred_capture(paymentMethodsNew.getDeferred_capture())
-//                .settings(paymentMethodsNew.getSettings())
-//                .additional_info_needed(paymentMethodsNew.getAdditional_info_needed())
-//                .min_allowed_amount(paymentMethodsNew.getMin_allowed_amount())
-//                .max_allowed_amount(paymentMethodsNew.getMax_allowed_amount())
-//                .accreditation_time(paymentMethodsNew.getAccreditation_time())
-//                .financial_institutions(paymentMethodsNew.getFinancial_institutions())
-//                .processing_modes(paymentMethodsNew.getProcessing_modes())
-//                .build();
-//
-//        PaymentMethods paymentMethodsSave=paymentMethodsRepository.save(paymentMethodsNew);
-//
-//    }
 
 
 }

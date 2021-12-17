@@ -28,9 +28,9 @@ public class PaymentMethods {
     private String deferred_capture;
 
 
-//    @OneToMany
-//    private List<Setting> settings;
-//
+    @OneToMany
+    private List<Setting> settings=new ArrayList<>();
+
 @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 @JoinTable(name = "paymentMethods_AdditionalInfoNeeded", joinColumns = @JoinColumn(name = "paymentMethods_id"),
         inverseJoinColumns = @JoinColumn(name = "additionalInfoNeeded_id"))
@@ -41,12 +41,14 @@ public class PaymentMethods {
     private int max_allowed_amount;
     private int accreditation_time;
 
-//    @OneToMany
-//    private List<FinancialInstitution> financial_institutions;
-//
-//
-//    @OneToMany
-//    private List<ProcessingModes> processing_modes;
+
+
+    @OneToMany
+    private List<FinancialInstitution> financial_institutions=new ArrayList<>();
+
+
+    @OneToMany
+    private List<ProcessingModes> processing_modes=new ArrayList<>();;
 
     public PaymentMethods() {
 

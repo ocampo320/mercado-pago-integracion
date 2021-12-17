@@ -1,5 +1,6 @@
 package com.project.clubfacil.controller;
 
+import com.project.clubfacil.dtos.PaymentMethodsDTO;
 import com.project.clubfacil.model.paymentMethods.PaymentMethods;
 import com.project.clubfacil.services.PaymentMethodsServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class PaymentMethodsController {
     PaymentMethodsServices paymentMethodsServices;
 
     @GetMapping()
-    public List<PaymentMethods> get
+    public List<PaymentMethodsDTO> get
             () {
 //        String token = request.getHeader(tokenHeader);
 //        String username = jwtProvider.getNombreUsuarioFromToken(token);
