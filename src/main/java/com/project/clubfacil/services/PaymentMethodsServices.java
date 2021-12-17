@@ -108,7 +108,7 @@ public class PaymentMethodsServices {
                             binNew.setInstallments_pattern(setting.getBin().getInstallments_pattern());
                             binNew.setExclusion_pattern(setting.getBin().getExclusion_pattern());
                             settingNew.setBin(binNew);
-                           binRepository.save(binNew);
+                            binRepository.save(binNew);
                         }
 
                         /**
@@ -120,10 +120,10 @@ public class PaymentMethodsServices {
                             securityCodeNew.setCard_location(setting.getSecurity_code().getCard_location());
                             securityCodeNew.setMode(setting.getSecurity_code().getMode());
                             settingNew.setSecurity_code(securityCodeNew);
-                          //  securityCodeRepository.save(securityCodeNew);
+                            //  securityCodeRepository.save(securityCodeNew);
                         }
                         settingList.add(settingNew);
-                        paymentMethodsNew.setSettings(settingList);
+                    //    paymentMethodsNew.setSettings(settingList);
 
                     });
 
@@ -137,12 +137,12 @@ public class PaymentMethodsServices {
                     List<ProcessingModes> processingModesList = new ArrayList<>();
                     paymentMethods.getProcessing_modes().forEach(processingModes -> {
                         ProcessingModes processModeNew = new ProcessingModes();
-                        processModeNew.setInfo(processingModes );
+                        processModeNew.setInfo(processingModes);
                         processingModesList.add(processModeNew);
                         processModeRepository.save(processModeNew);
 
                     });
-                    paymentMethodsNew.setProcessing_modes(processingModesList);
+                //    paymentMethodsNew.setProcessing_modes(processingModesList);
                 }
 
 
@@ -161,11 +161,11 @@ public class PaymentMethodsServices {
                         financialInstitutionsRepository.save(financialInstitutionNew);
                     });
 
-                    paymentMethodsNew.setFinancial_institutions(financialInstitutionList);
+               //     paymentMethodsNew.setFinancial_institutions(financialInstitutionList);
 
 
-                }else{
-                    paymentMethodsNew.setFinancial_institutions(new ArrayList<>());
+                } else {
+                //    paymentMethodsNew.setFinancial_institutions(new ArrayList<>());
                 }
 
                 /**
@@ -179,30 +179,43 @@ public class PaymentMethodsServices {
                 paymentMethodsNew.setSecure_thumbnail(paymentMethods.getSecure_thumbnail());
                 paymentMethodsNew.setThumbnail(paymentMethods.getThumbnail());
                 paymentMethodsNew.setDeferred_capture(paymentMethods.getDeferred_capture());
-
                 paymentMethodsNew.setMin_allowed_amount(paymentMethods.getMin_allowed_amount());
                 paymentMethodsNew.setMax_allowed_amount(paymentMethods.getMax_allowed_amount());
                 paymentMethodsNew.setAccreditation_time(paymentMethods.getAccreditation_time());
 
                 paymentMethodsListNew.add(paymentMethodsNew);
 
-
-
-
-
-
+                paymentMethodsRepository.save(paymentMethodsNew);
+              //  savePaymentMethod(paymentMethodsNew);
             });
 
 
         }
 
-        return   paymentMethodsListNew;
+        return paymentMethodsListNew;
     }
-
-
-
-
-
+//
+//    void savePaymentMethod(PaymentMethods paymentMethodsNew ){
+//
+//        paymentMethodsNew.builder()
+//                .name(paymentMethodsNew.getId())
+//                .payment_type_id(paymentMethodsNew.getPayment_type_id())
+//                .status(paymentMethodsNew.getStatus())
+//                .secure_thumbnail(paymentMethodsNew.getSecure_thumbnail())
+//                .thumbnail(paymentMethodsNew.getThumbnail())
+//                .deferred_capture(paymentMethodsNew.getDeferred_capture())
+//                .settings(paymentMethodsNew.getSettings())
+//                .additional_info_needed(paymentMethodsNew.getAdditional_info_needed())
+//                .min_allowed_amount(paymentMethodsNew.getMin_allowed_amount())
+//                .max_allowed_amount(paymentMethodsNew.getMax_allowed_amount())
+//                .accreditation_time(paymentMethodsNew.getAccreditation_time())
+//                .financial_institutions(paymentMethodsNew.getFinancial_institutions())
+//                .processing_modes(paymentMethodsNew.getProcessing_modes())
+//                .build();
+//
+//        PaymentMethods paymentMethodsSave=paymentMethodsRepository.save(paymentMethodsNew);
+//
+//    }
 
 
 }
