@@ -18,6 +18,8 @@ import javax.persistence.Id;
 public class CardNumber{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     public int length;
     public String validation;
 

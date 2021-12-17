@@ -18,6 +18,7 @@ public class SecurityCode{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String mode;
     private int length;
     private String card_location;

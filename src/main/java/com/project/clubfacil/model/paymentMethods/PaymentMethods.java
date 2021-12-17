@@ -25,10 +25,10 @@ public class PaymentMethods {
     private String deferred_capture;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @OneToMany
     private List<Setting> settings;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @OneToMany
     private List<AdditionalInfoNeeded> additional_info_needed;
 
 
@@ -36,11 +36,11 @@ public class PaymentMethods {
     private int max_allowed_amount;
     private int accreditation_time;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @OneToMany
     private List<FinancialInstitution> financial_institutions;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @OneToMany
     private List<ProcessingModes> processing_modes;
 
     public PaymentMethods() {

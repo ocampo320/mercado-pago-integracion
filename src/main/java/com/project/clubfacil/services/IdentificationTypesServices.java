@@ -1,7 +1,6 @@
 package com.project.clubfacil.services;
 
 import com.project.clubfacil.model.IdentificationTypes;
-import com.project.clubfacil.model.paymentMethods.PaymentMethods;
 import com.project.clubfacil.repository.IdentificationTypesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;

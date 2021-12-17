@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class FinancialInstitution {
+
     @Id
     public String id;
     public String description;

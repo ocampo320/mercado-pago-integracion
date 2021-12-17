@@ -4,8 +4,6 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -19,7 +17,7 @@ public class IdentificationTypes {
 
     @Id
     @NotNull
-   private String id;
+    private String id;
 
     @NotNull
     private  String name;

@@ -3,10 +3,7 @@ package com.project.clubfacil.model.paymentMethods;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,14 +11,18 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Bin{
+public class BinEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(length = 2048)
     private String pattern;
+    @Column(length = 2048)
     private String exclusion_pattern;
+    @Column(length = 2048)
     private String installments_pattern;
 
-    public Bin() {
+    public BinEntity() {
 
     }
 }

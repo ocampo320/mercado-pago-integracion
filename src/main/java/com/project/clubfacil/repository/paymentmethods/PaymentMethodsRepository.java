@@ -1,7 +1,6 @@
-package com.project.clubfacil.repository;
+package com.project.clubfacil.repository.paymentmethods;
 
 
-import com.project.clubfacil.model.IdentificationTypes;
 import com.project.clubfacil.model.paymentMethods.PaymentMethods;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

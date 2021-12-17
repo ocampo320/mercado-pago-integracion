@@ -16,10 +16,13 @@ public class Setting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    private Bin bin;
+    private BinEntity bin;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private CardNumber card_number;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private SecurityCode security_code;
 
