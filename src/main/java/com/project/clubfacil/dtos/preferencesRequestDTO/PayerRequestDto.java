@@ -1,15 +1,15 @@
-package com.project.clubfacil.dtos.preferencesDTO;
+package com.project.clubfacil.dtos.preferencesRequestDTO;
 
 import com.project.clubfacil.model.IdentificationTypes;
 
 import java.util.Date;
 
-public class PayerDto {
+public class PayerRequestDto {
     public String name;
     public String surname;
     public String email;
     public Date date_created;
-    public PhoneDto phone;
+    public PhoneRequestDto phone;
     public IdentificationTypes identification;
-    public AddressDto address;
+    public AddressRequestDto address;
 }

@@ -1,6 +1,6 @@
-package com.project.clubfacil.dtos.preferencesDTO;
+package com.project.clubfacil.dtos.preferencesRequestDTO;
 
-public class ItemDto {
+public class ItemRequestDto {
     public String title;
     public String description;
     public int quantity;

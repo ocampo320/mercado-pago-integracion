@@ -1,6 +1,6 @@
-package com.project.clubfacil.dtos.preferencesDTO;
+package com.project.clubfacil.dtos.preferencesRequestDTO;
 
-public class AddressDto {
+public class AddressRequestDto {
     public String street_name;
     public int street_number;
     public String zip_code;
