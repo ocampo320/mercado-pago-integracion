@@ -1,7 +1,5 @@
 package com.project.clubfacil.dtos.preferencesResponseDto;
 
-import com.project.clubfacil.model.preferences.Item;
-
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class RootResponseDto {
     public Object expiration_date_from;
     public Object expiration_date_to;
     public boolean expires;
+    //Dato para hacer el llamdo al checkout
     public String external_reference;
     public String id;
     public String init_point;
