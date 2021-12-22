@@ -43,13 +43,10 @@ public class PreferencesServices {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer APP_USR-3951552830330174-121221-5adc5eb48689499ac13c310710d71299-109891437");
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-
+        
         HttpEntity<RootRequestDto> request = new HttpEntity<>(rootRequestDto, headers);
 
-
         ResponseEntity<RootResponseDto> response = restTemplate.postForEntity("https://api.mercadopago.com/checkout/preferences", request, RootResponseDto.class);
-
 
         System.out.println(response.getBody().toString());
 
