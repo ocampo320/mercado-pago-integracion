@@ -1,8 +1,16 @@
 package com.project.clubfacil.dtos.preferencesRequestDTO;
 
-import java.util.List;
+import lombok.*;
 
+import java.util.List;
+@Getter
+@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
 public class RootRequestDto {
     public List<ItemRequestDto> items;
     public PayerRequestDto payer;
+
 }

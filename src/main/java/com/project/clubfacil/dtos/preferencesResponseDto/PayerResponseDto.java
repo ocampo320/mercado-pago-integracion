@@ -1,9 +1,5 @@
 package com.project.clubfacil.dtos.preferencesResponseDto;
 
-import com.project.clubfacil.model.IdentificationTypes;
-import com.project.clubfacil.model.preferences.Address;
-import com.project.clubfacil.model.preferences.Phone;
-
 import java.util.Date;
 
 public class PayerResponseDto {

@@ -25,7 +25,7 @@ public class RootResponseDto {
     public List<ItemResponseDto> items;
     public String marketplace;
     public int marketplace_fee;
-    public MetadataResponseDto metadata;
+  //  public MetadataResponseDto metadata;
     public Object notification_url;
     public String operation_type;
     public PayerResponseDto payer;
