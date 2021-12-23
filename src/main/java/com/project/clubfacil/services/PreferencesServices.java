@@ -1,15 +1,11 @@
 package com.project.clubfacil.services;
 
 
+import com.project.clubfacil.dtos.preferencesRequestDTO.PreferencesResponseDto;
 import com.project.clubfacil.dtos.preferencesRequestDTO.RootRequestDto;
 import com.project.clubfacil.dtos.preferencesResponseDto.RootResponseDto;
-import com.project.clubfacil.model.preferences.Identification;
-import com.project.clubfacil.model.preferences.Payer;
-import com.project.clubfacil.model.preferences.Phone;
-import com.project.clubfacil.model.preferences.Preferences;
-import com.project.clubfacil.repository.preferences.IdetentificationPreferencesRepository;
-import com.project.clubfacil.repository.preferences.PayerPreferenceRepository;
-import com.project.clubfacil.repository.preferences.PhonePreferenceRepository;
+import com.project.clubfacil.model.preferences.*;
+import com.project.clubfacil.repository.preferences.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -40,31 +36,22 @@ public class PreferencesServices {
     @Autowired
     IdetentificationPreferencesRepository identificationRepository;
 
+    @Autowired
+    ItemPreferenceRepository itemPreferenceRepository;
 
-    public RootResponseDto createPreferences(RootRequestDto rootRequestDto) {
+    @Autowired
+    PreferencesRepository preferencesRepository;
+
+
+    public PreferencesResponseDto createPreferences(RootRequestDto rootRequestDto) {
 
         Preferences preferences = new Preferences();
+
         Payer payer = new Payer();
         Phone phoneNew = new Phone();
         Identification identification = new Identification();
-
-
-        /**
-         * '{
-         *           "items": [
-         *               {
-         *               "title": "Dummy Item",
-         *               "description": "Multicolor Item",
-         *               "quantity": 1,
-         *               "currency_id": "ARS",
-         *               "unit_price": 10.0
-         *               }
-         *           ],
-         *           "payer": {
-         *               "email": "payer@email.com"
-         *           }
-         *     }'
-         */
+        PreferencesResponseDto preferencesResponseDto=new PreferencesResponseDto();
+        List<Item>itemList=new ArrayList<>();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -78,31 +65,15 @@ public class PreferencesServices {
         System.out.println(response.getBody().toString());
 
 
-        List<Phone> phoneList = new ArrayList<>();
+        //List<Phone> phoneList = new ArrayList<>();
 
-        phoneList = phonePreferenceRepository.findAll();
+       // phoneList = phonePreferenceRepository.findAll();
 
-        if (phoneList.size() == 0) {
 
             phoneNew.setArea_code(response.getBody().payer.phone.area_code);
             phoneNew.setNumber(response.getBody().payer.phone.number);
             phonePreferenceRepository.save(phoneNew);
             payer.setPhone(phonePreferenceRepository.findById(phoneNew.getId()).get());
-
-        } else {
-            phonePreferenceRepository.findAll().forEach(phone -> {
-                if (phone.getNumber().equals(request.getBody().payer.phone.number)) {
-                    System.out.println("Es el mismo telefono");
-
-                } else {
-                    phoneNew.setArea_code(response.getBody().payer.phone.area_code);
-                    phoneNew.setNumber(response.getBody().payer.phone.number);
-                    phonePreferenceRepository.save(phoneNew);
-                    payer.setPhone(phonePreferenceRepository.findById(phoneNew.getId()).get());
-                }
-            });
-        }
-
 
         List<Identification> identificationList = new ArrayList<>();
 
@@ -132,16 +103,38 @@ public class PreferencesServices {
 
         }
 
+    response.getBody().items.forEach(itemResponseDto ->{
+        Item item = new Item();
+        item.setCurrency_id(itemResponseDto.currency_id);
+        item.setDescription(itemResponseDto.description);
+        item.setTitle(itemResponseDto.title);
+        item.setQuantity(itemResponseDto.quantity);
+        item.setUnit_price(itemResponseDto.unit_price);
+        itemList.add(item);
+
+        preferencesResponseDto.setItems(itemList);
+        itemPreferenceRepository.save(item);
+    });
+
         payer.setEmail(response.getBody().payer.email);
         payer.setName(response.getBody().payer.name);
         payer.setSurname(response.getBody().payer.surname);
-
+        preferencesResponseDto.setPayer(payer);
 
         payerPreferenceRepository.save(payer);
+        preferences.setPayer(payerPreferenceRepository.getById(payer.getId()));
+        preferences.setExternal_reference(response.getBody().external_reference);
+        preferences.setSandbox_init_point(response.getBody().sandbox_init_point);
+        preferencesResponseDto.setUrlInit(response.getBody().sandbox_init_point);
 
 
-        return response.getBody();
+        preferencesRepository.save(preferences);
+
+
+        return preferencesResponseDto;
 
     }
+
+
 
 }
