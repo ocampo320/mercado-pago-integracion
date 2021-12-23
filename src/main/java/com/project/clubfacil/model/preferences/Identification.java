@@ -13,17 +13,14 @@ import javax.persistence.Id;
 @Setter
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder(toBuilder = true)
-public class Address{
+public class Identification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String street_name;
-    private int street_number;
-    private String zip_code;
+    int id;
+    String type;
+    String number;
 
-    public Address() {
-
-    }
 }

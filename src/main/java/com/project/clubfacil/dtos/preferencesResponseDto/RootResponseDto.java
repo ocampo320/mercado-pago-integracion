@@ -33,6 +33,7 @@ public class RootResponseDto {
     public Object processing_modes;
     public Object product_id;
     public RedirectUrlsResponseDto redirect_urls;
+    //Esta es la url para pintar en el webView
     public String sandbox_init_point;
     public String site_id;
     public ShipmentsResponseDto shipments;

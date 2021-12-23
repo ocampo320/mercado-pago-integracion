@@ -17,11 +17,17 @@ public class Preferences {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany
-    private List<Item> items=new ArrayList<>();
 
     @OneToOne
     private Payer payer;
+
+
+    //Dato para hacer el llamdo al checkout
+    public String external_reference;
+
+
+    //Esta es la url para pintar en el webView
+    public String sandbox_init_point;
 
     public Preferences() {
 

@@ -19,15 +19,15 @@ public class Payer{
     public String name;
     public String surname;
     public String email;
-    public Date date_created;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "phone")
     public Phone phone;
 
-    @OneToOne
-    public IdentificationTypes identification;
+    @OneToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "identification")
+    public Identification identification;
 
-    @OneToOne
-    public Address address;
 
     public Payer() {
 
