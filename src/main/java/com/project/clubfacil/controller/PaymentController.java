@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "*")
 public class PaymentController {
 
+
+    /***
+     * Consulta el pago realizado, recibe el codigo de referencia de pago generado en el pago.
+     */
     @Autowired
     PaymentServices paymentServices;
 
     @GetMapping("/{paymentId}")
     public ResponseEntity<PaymentResponse> getIdentificationTypes(@PathVariable("paymentId") String paymentId, HttpServletRequest request) {
         PaymentResponse paymentResponse = new PaymentResponse();
-//        String token = request.getHeader(tokenHeader);
-//        String username = jwtProvider.getNombreUsuarioFromToken(token);
-//        String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
-//        List<ApartmentResponse> list = apartmentServices.findApartmentByFloor(id);
         paymentResponse = paymentServices.getPayment(paymentId);
         return new ResponseEntity(paymentResponse, HttpStatus.OK);
     }

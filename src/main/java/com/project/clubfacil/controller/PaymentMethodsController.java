@@ -17,16 +17,14 @@ import java.util.List;
 public class PaymentMethodsController {
 
 
+    /**
+     * Obtiene los metodos de pagos desde mercado pago
+     */
     @Autowired
     PaymentMethodsServices paymentMethodsServices;
 
     @GetMapping()
-    public List<PaymentMethodsDTO> get
-            () {
-//        String token = request.getHeader(tokenHeader);
-//        String username = jwtProvider.getNombreUsuarioFromToken(token);
-//        String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
-//        List<ApartmentResponse> list = apartmentServices.findApartmentByFloor(id);
+    public List<PaymentMethodsDTO> get() {
         return paymentMethodsServices.getPaymentMethodsFromApi();
     }
 }

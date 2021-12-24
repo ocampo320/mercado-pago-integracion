@@ -19,16 +19,14 @@ import java.util.List;
 
 public class IdentificationTypesController {
 
-
+    /**
+     * Obtiene desde mercado pago la lista de tipos de documentos.
+     */
     @Autowired
     IdentificationTypesServices identificationTypesServices;
 
     @GetMapping()
     public List<IdentificationTypes> getIdentificationTypes() {
-//        String token = request.getHeader(tokenHeader);
-//        String username = jwtProvider.getNombreUsuarioFromToken(token);
-//        String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
-//        List<ApartmentResponse> list = apartmentServices.findApartmentByFloor(id);
         return identificationTypesServices.getIdentificationTypes();
     }
 }
