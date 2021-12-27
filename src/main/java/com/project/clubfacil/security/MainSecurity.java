@@ -56,6 +56,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/paymentMethods/**").permitAll()
                 .antMatchers("/preferences/**").permitAll()
                 .antMatchers("/payments/**").permitAll()
+                .antMatchers("/currency/**").permitAll()
                 .anyRequest().authenticated();
 //                .and()
 //                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
