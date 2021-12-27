@@ -3,6 +3,7 @@ package com.project.clubfacil.services;
 import com.project.clubfacil.dtos.paymentsResponseDto.PaymentResponse;
 import com.project.clubfacil.dtos.paymentsResponseDto.PaymentResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,17 +16,22 @@ import java.util.Arrays;
 @Service
 @Transactional
 public class PaymentServices {
+    @Value("${my.property.authorization}")
+    private   String authorization;
 
+
+    @Value("${my.property.url}")
+    private   String url;
     @Autowired
     RestTemplate restTemplate;
 
 
     public PaymentResponse getPayment(String code) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.mercadopago.com/v1/payments/")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url+"v1/payments/")
                 .path(code);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer TEST-4092050722626379-122214-5e7417392c6cb2a54c93f26ecf22d9f2-109891437");
+        headers.set("Authorization", authorization);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<?> request = new HttpEntity<>(headers);
         UriComponents uriComponents = builder.build().encode();

@@ -24,7 +24,7 @@ public class PaymentMethodsController {
     PaymentMethodsServices paymentMethodsServices;
 
     @GetMapping()
-    public List<PaymentMethodsDTO> get() {
+    public List<PaymentMethods> get() {
         return paymentMethodsServices.getPaymentMethodsFromApi();
     }
 }

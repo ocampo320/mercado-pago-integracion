@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @Data

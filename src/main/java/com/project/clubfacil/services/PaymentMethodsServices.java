@@ -2,8 +2,10 @@ package com.project.clubfacil.services;
 
 import com.project.clubfacil.dtos.PaymentMethodsDTO;
 import com.project.clubfacil.model.paymentMethods.*;
-import com.project.clubfacil.repository.paymentmethods.*;
+//import com.project.clubfacil.repository.paymentmethods.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,40 +20,46 @@ import java.util.List;
 public class PaymentMethodsServices {
 
 
-    @Autowired
-    PaymentMethodsRepository paymentMethodsRepository;
+    @Value("${my.property.authorization}")
+    private   String authorization;
+
+    @Value("${my.property.url}")
+    private   String url;
+
+//    @Autowired
+//    PaymentMethodsRepository paymentMethodsRepository;
 
 
     @Autowired
     RestTemplate restTemplate;
 
 
-    @Autowired
-    FinancialInstitutionsRepository financialInstitutionsRepository;
+//    @Autowired
+//    FinancialInstitutionsRepository financialInstitutionsRepository;
+//
+//    @Autowired
+//    BinRepository binRepository;
+//
+//    @Autowired
+//    CardNumberRepository cardNumberRepository;
+//
+//
+//    @Autowired
+//    SecurityCodeRepository securityCodeRepository;
+//
+//
+//    @Autowired
+//    ProcessModeRepository processModeRepository;
 
-    @Autowired
-    BinRepository binRepository;
-
-    @Autowired
-    CardNumberRepository cardNumberRepository;
-
-
-    @Autowired
-    SecurityCodeRepository securityCodeRepository;
-
-
-    @Autowired
-    ProcessModeRepository processModeRepository;
-
-    public List<PaymentMethodsDTO> getPaymentMethodsFromApi() {
-
+    public List<PaymentMethods> getPaymentMethodsFromApi() {
         List<PaymentMethods> paymentMethodsListNew = new ArrayList<>();
 
+
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer APP_USR-3951552830330174-121221-5adc5eb48689499ac13c310710d71299-109891437");
+        headers.set("Authorization", authorization);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<PaymentMethodsDTO> entity = new HttpEntity<PaymentMethodsDTO>(headers);
-        ResponseEntity<PaymentMethodsDTO[]> paymentMethodsList = restTemplate.exchange("https://api.mercadopago.com/v1/payment_methods", HttpMethod.GET, entity, PaymentMethodsDTO[].class);
+        ResponseEntity<PaymentMethodsDTO[]> paymentMethodsList = restTemplate.exchange(url+"v1/payment_methods", HttpMethod.GET, entity, PaymentMethodsDTO[].class);
 
 
         if (paymentMethodsList.getStatusCode().equals(HttpStatus.OK)) {
@@ -96,7 +104,7 @@ public class PaymentMethodsServices {
                             cardNumberNew.setValidation(setting.getCard_number().getValidation());
                             cardNumberNew.setLength(setting.getCard_number().getLength());
                             settingNew.setCard_number(cardNumberNew);
-                            cardNumberRepository.save(cardNumberNew);
+                         //   cardNumberRepository.save(cardNumberNew);
                         }
 
                         /**
@@ -108,7 +116,7 @@ public class PaymentMethodsServices {
                             binNew.setInstallments_pattern(setting.getBin().getInstallments_pattern());
                             binNew.setExclusion_pattern(setting.getBin().getExclusion_pattern());
                             settingNew.setBin(binNew);
-                            binRepository.save(binNew);
+                          //  binRepository.save(binNew);
                         }
 
                         /**
@@ -139,7 +147,7 @@ public class PaymentMethodsServices {
                         ProcessingModes processModeNew = new ProcessingModes();
                         processModeNew.setInfo(processingModes);
                         processingModesList.add(processModeNew);
-                        processModeRepository.save(processModeNew);
+                       // processModeRepository.save(processModeNew);
 
                     });
                    paymentMethodsNew.setProcessing_modes(processingModesList);
@@ -157,8 +165,8 @@ public class PaymentMethodsServices {
                         FinancialInstitution financialInstitutionNew = new FinancialInstitution();
                         financialInstitutionNew.setDescription(financialInstitution.getDescription());
                         financialInstitutionNew.setId(financialInstitution.getId());
-                        financialInstitutionList.add(financialInstitutionNew);
-                        financialInstitutionsRepository.save(financialInstitutionNew);
+                     //  financialInstitutionList.add(financialInstitutionNew);
+                     //   financialInstitutionsRepository.save(financialInstitutionNew);
                     });
 
                 paymentMethodsNew.setFinancial_institutions(financialInstitutionList);
@@ -185,13 +193,13 @@ public class PaymentMethodsServices {
 
                 paymentMethodsListNew.add(paymentMethodsNew);
 
-                paymentMethodsRepository.save(paymentMethodsNew);
+              //  paymentMethodsRepository.save(paymentMethodsNew);
               //  savePaymentMethod(paymentMethodsNew);
             });
 
         }
 
-        return Arrays.asList(paymentMethodsList.getBody());
+        return paymentMethodsListNew;
     }
 
 

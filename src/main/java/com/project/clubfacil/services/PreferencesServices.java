@@ -7,6 +7,7 @@ import com.project.clubfacil.dtos.preferencesResponseDto.RootResponseDto;
 import com.project.clubfacil.model.preferences.*;
 import com.project.clubfacil.repository.preferences.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -22,6 +23,12 @@ import java.util.List;
 @Service
 @Transactional
 public class PreferencesServices {
+
+    @Value("${my.property.authorization}")
+    private String authorization;
+
+    @Value("${my.property.url}")
+    private String url;
 
     @Autowired
     RestTemplate restTemplate;
@@ -50,71 +57,54 @@ public class PreferencesServices {
         Payer payer = new Payer();
         Phone phoneNew = new Phone();
         Identification identification = new Identification();
-        PreferencesResponseDto preferencesResponseDto=new PreferencesResponseDto();
-        List<Item>itemList=new ArrayList<>();
+        PreferencesResponseDto preferencesResponseDto = new PreferencesResponseDto();
+        List<Item> itemList = new ArrayList<>();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer APP_USR-3951552830330174-121221-5adc5eb48689499ac13c310710d71299-109891437");
+        headers.set("Authorization", authorization);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<RootRequestDto> request = new HttpEntity<>(rootRequestDto, headers);
 
-        ResponseEntity<RootResponseDto> response = restTemplate.postForEntity("https://api.mercadopago.com/checkout/preferences", request, RootResponseDto.class);
+        ResponseEntity<RootResponseDto> response = restTemplate.postForEntity(url+"checkout/preferences", request, RootResponseDto.class);
 
         System.out.println(response.getBody().toString());
 
 
         //List<Phone> phoneList = new ArrayList<>();
 
-       // phoneList = phonePreferenceRepository.findAll();
+        // phoneList = phonePreferenceRepository.findAll();
 
 
-            phoneNew.setArea_code(response.getBody().payer.phone.area_code);
-            phoneNew.setNumber(response.getBody().payer.phone.number);
-            phonePreferenceRepository.save(phoneNew);
-            payer.setPhone(phonePreferenceRepository.findById(phoneNew.getId()).get());
+        phoneNew.setArea_code(response.getBody().payer.phone.area_code);
+        phoneNew.setNumber(response.getBody().payer.phone.number);
+        phonePreferenceRepository.save(phoneNew);
+        payer.setPhone(phonePreferenceRepository.findById(phoneNew.getId()).get());
 
-        List<Identification> identificationList = new ArrayList<>();
-
-        identificationList = identificationRepository.findAll();
-
-        if (identificationList.size() == 0) {
-            identification.setType(response.getBody().payer.identification.type);
-            identification.setNumber(response.getBody().payer.identification.number);
-            identificationRepository.save(identification);
-            payer.setIdentification(identificationRepository.findById(identification.getId()).get());
-
-        } else {
-            identificationRepository.findAll().forEach(identification1 -> {
-                if (identification1.getNumber().equals(request.getBody().payer.identification.getNumber()) && identification1.getType().equals(request.getBody().payer.identification.getType())) {
-
-                    System.out.println("Es la misma cedula y el mismo tipo de documento, no se puede crear");
+//        List<Identification> identificationList = new ArrayList<>();
+//
+//        identificationList = identificationRepository.findAll();
 
 
-                } else {
-                    identification.setType(response.getBody().payer.identification.type);
-                    identification.setNumber(response.getBody().payer.identification.number);
-                    identificationRepository.save(identification);
-                    payer.setIdentification(identificationRepository.findById(identification.getId()).get());
+        identification.setType(response.getBody().payer.identification.type);
+        identification.setNumber(response.getBody().payer.identification.number);
+        identificationRepository.save(identification);
+        payer.setIdentification(identificationRepository.findById(identification.getId()).get());
 
-                }
-            });
 
-        }
+        response.getBody().items.forEach(itemResponseDto -> {
+            Item item = new Item();
+            item.setCurrency_id(itemResponseDto.currency_id);
+            item.setDescription(itemResponseDto.description);
+            item.setTitle(itemResponseDto.title);
+            item.setQuantity(itemResponseDto.quantity);
+            item.setUnit_price(itemResponseDto.unit_price);
+            itemList.add(item);
 
-    response.getBody().items.forEach(itemResponseDto ->{
-        Item item = new Item();
-        item.setCurrency_id(itemResponseDto.currency_id);
-        item.setDescription(itemResponseDto.description);
-        item.setTitle(itemResponseDto.title);
-        item.setQuantity(itemResponseDto.quantity);
-        item.setUnit_price(itemResponseDto.unit_price);
-        itemList.add(item);
-
-        preferencesResponseDto.setItems(itemList);
-        itemPreferenceRepository.save(item);
-    });
+            preferencesResponseDto.setItems(itemList);
+            itemPreferenceRepository.save(item);
+        });
 
         payer.setEmail(response.getBody().payer.email);
         payer.setName(response.getBody().payer.name);
@@ -134,7 +124,6 @@ public class PreferencesServices {
         return preferencesResponseDto;
 
     }
-
 
 
 }
