@@ -19,6 +19,7 @@ public class Payer{
     public String name;
     public String surname;
     public String email;
+    public Date dateCreated;
 
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "phone")

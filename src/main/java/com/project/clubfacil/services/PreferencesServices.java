@@ -109,6 +109,7 @@ public class PreferencesServices {
         payer.setEmail(response.getBody().payer.email);
         payer.setName(response.getBody().payer.name);
         payer.setSurname(response.getBody().payer.surname);
+        payer.setDateCreated(response.getBody().date_created.toString());
         preferencesResponseDto.setPayer(payer);
 
         payerPreferenceRepository.save(payer);
