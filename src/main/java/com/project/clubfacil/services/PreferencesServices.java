@@ -101,7 +101,6 @@ public class PreferencesServices {
             item.setQuantity(itemResponseDto.quantity);
             item.setUnit_price(itemResponseDto.unit_price);
             itemList.add(item);
-
             preferencesResponseDto.setItems(itemList);
             itemPreferenceRepository.save(item);
         });
