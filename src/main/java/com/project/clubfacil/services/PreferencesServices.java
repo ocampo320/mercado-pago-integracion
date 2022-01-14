@@ -114,8 +114,8 @@ public class PreferencesServices {
         payerPreferenceRepository.save(payer);
         preferences.setPayer(payerPreferenceRepository.getById(payer.getId()));
         preferences.setExternal_reference(response.getBody().external_reference);
-        preferences.setSandbox_init_point(response.getBody().sandbox_init_point);
-        preferencesResponseDto.setUrlInit(response.getBody().sandbox_init_point);
+        preferences.setSandbox_init_point(response.getBody().init_point);
+        preferencesResponseDto.setUrlInit(response.getBody().init_point);
 
 
         preferencesRepository.save(preferences);
