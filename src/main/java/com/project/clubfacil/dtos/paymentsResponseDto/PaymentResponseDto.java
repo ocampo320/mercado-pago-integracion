@@ -27,7 +27,7 @@ public class PaymentResponseDto {
     public Object differential_pricing_id;
     public Object external_reference;
     public List<FeeDetail> fee_details;
-    public int id;
+    public Long id;
     public int installments;
     public Object integrator_id;
     public String issuer_id;

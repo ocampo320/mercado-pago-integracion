@@ -26,9 +26,9 @@ public class PaymentServices {
     RestTemplate restTemplate;
 
 
-    public PaymentResponse getPayment(String code) {
+    public PaymentResponse getPayment(Long code) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url+"v1/payments/")
-                .path(code);
+                .path(code.toString());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", authorization);

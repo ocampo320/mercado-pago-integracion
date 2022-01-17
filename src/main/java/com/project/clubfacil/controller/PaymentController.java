@@ -22,7 +22,7 @@ public class PaymentController {
     PaymentServices paymentServices;
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<PaymentResponse> getIdentificationTypes(@PathVariable("paymentId") String paymentId, HttpServletRequest request) {
+    public ResponseEntity<PaymentResponse> getIdentificationTypes(@PathVariable("paymentId") Long paymentId, HttpServletRequest request) {
         PaymentResponse paymentResponse = new PaymentResponse();
         paymentResponse = paymentServices.getPayment(paymentId);
         return new ResponseEntity(paymentResponse, HttpStatus.OK);
