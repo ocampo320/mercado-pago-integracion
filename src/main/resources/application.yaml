@@ -1,0 +1,5 @@
+  my:
+    property:
+      authorization : "Bearer  APP_USR-1466431171041987-011122-846e1f22a9a178a7c96cc994a9234e56-99300811"
+      url: "https://api.mercadopago.com/"
+

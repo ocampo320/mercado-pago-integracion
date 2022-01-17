@@ -3,6 +3,7 @@ package com.project.clubfacil.services;
 import com.project.clubfacil.model.IdentificationTypes;
 import com.project.clubfacil.repository.IdentificationTypesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,11 @@ public class IdentificationTypesServices {
 
 
 
+    @Value("${my.property.url}")
+    private String url;
 
-
+    @Value("${my.property.authorization}")
+    private   String authorization;
 
     /***
      * Retorna la lista de tipos de documentos de la base de datos, luego de hacer el consumo al api de mercado pago
@@ -34,10 +38,10 @@ public class IdentificationTypesServices {
      */
     public List<IdentificationTypes> getIdentificationTypes() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer APP_USR-3951552830330174-121221-5adc5eb48689499ac13c310710d71299-109891437");
+        headers.set("Authorization",authorization);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<IdentificationTypes> entity = new HttpEntity<IdentificationTypes>(headers);
-        ResponseEntity<IdentificationTypes[]> identificationTypesList = restTemplate.exchange("https://api.mercadopago.com/v1/identification_types", HttpMethod.GET, entity, IdentificationTypes[].class);
+        ResponseEntity<IdentificationTypes[]> identificationTypesList = restTemplate.exchange(url+"identification_types", HttpMethod.GET, entity, IdentificationTypes[].class);
 
         if (identificationTypesList.getStatusCode().equals(HttpStatus.OK)) {
             Arrays.stream(identificationTypesList.getBody()).forEach(identificationTypes -> {
